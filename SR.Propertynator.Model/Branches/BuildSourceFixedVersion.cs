@@ -1,16 +1,17 @@
-﻿namespace SR.Propertynator.Model.Branches;
-
-public sealed class BuildSourceFixedVersion : BuildSource
+﻿namespace SR.Propertynator.Model.Branches
 {
-    public BuildSourceFixedVersion(BuildVersion version)
+    public sealed class BuildSourceFixedVersion : BuildSource
     {
-        Version = version;
-    }
+        public BuildSourceFixedVersion(BuildVersion version)
+        {
+            Version = version;
+        }
 
-    public BuildVersion Version { get; set; }
+        public BuildVersion Version { get; set; }
 
-    public override void Write(TextWriter stream, string projectName)
-    {
-        stream.WriteLine($"{projectName}.{Tags.Tag}={Version}");
+        public override void Write(TextWriter stream, string projectName)
+        {
+            stream.WriteLine($"{projectName}.{Tags.Tag}={Version}");
+        }
     }
 }

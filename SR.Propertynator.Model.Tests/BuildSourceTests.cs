@@ -2,7 +2,7 @@
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-using SR.Propertynator.Model.BuildModes;
+using SR.Propertynator.Model.Branches;
 
 namespace SR.Propertynator.Model.Tests
 {
@@ -10,60 +10,56 @@ namespace SR.Propertynator.Model.Tests
     public class BuildSourceTests
     {
         private const string ProjectName = "TestProjectName";
-        
+
         [TestMethod]
-        public void CreateModelBinary()
+        public void WriteBuildModeStage()
         {
-            BuildMode model = BuildMode.Binary;
-            model.Should().BeSameAs(BuildMode.Binary);
+            BuildSource buildSource = BuildSource.Stage;
+
+            string propertyFileTestLine = WriteToString(buildSource, ProjectName);
+
+            propertyFileTestLine.Trim().Should().Be($"{ProjectName}.branch=stage");
         }
 
         [TestMethod]
-        public void CreateModelSource()
+        public void WriteBuildIntegration()
         {
-            BuildMode model = BuildMode.Source;
-            model.Should().BeSameAs(BuildMode.Source);
+            BuildSource buildSource = BuildSource.Integration;
+
+            string propertyFileTestLine = WriteToString(buildSource, ProjectName);
+
+            propertyFileTestLine.Trim().Should().Be($"{ProjectName}.branch=integration");
         }
 
         [TestMethod]
-        public void CreateModelIgnore()
+        public void WriteBuildModeFixedVersion()
         {
-            BuildMode model = BuildMode.Ignore;
-            model.Should().BeSameAs(BuildMode.Ignore);
+            BuildVersion buildVersion = new BuildVersion(12, 16, 7, 27);
+            BuildSource buildSource = BuildSource.CreateFixedVersion(buildVersion);
+
+            string propertyFileTestLine = WriteToString(buildSource, ProjectName);
+
+            propertyFileTestLine.Trim().Should().Be($"{ProjectName}.tag={buildVersion}");
         }
 
         [TestMethod]
-        public void WriteModelBinary()
+        public void WriteBuildModeCustomFork()
         {
-            BuildMode model = BuildMode.Binary;
-            string propertyFileTestLine = WriteToString(model, ProjectName);
+            string BranchName = "BranchName";
+            string ForkName = "ForkName";
 
-            propertyFileTestLine.Trim().Should().Be($"{ProjectName}.mode=binary");
+            BuildSource buildSource = BuildSource.CreateCustomFork(BranchName, ForkName);
+
+            string propertyFileTestLine = WriteToString(buildSource, ProjectName);
+
+            propertyFileTestLine.Trim().Should().Be($"{ProjectName}.fork={ForkName}{Environment.NewLine}{ProjectName}.branch={BranchName}");
         }
 
-        [TestMethod]
-        public void WriteModelSource()
-        {
-            BuildMode model = BuildMode.Source;
-            string propertyFileTestLine = WriteToString(model, ProjectName);
-
-            propertyFileTestLine.Trim().Should().Be($"{ProjectName}.mode=source");
-        }
-
-        [TestMethod]
-        public void WriteModelIgnore()
-        {
-            BuildMode model = BuildMode.Ignore;
-            string propertyFileTestLine = WriteToString(model, ProjectName);
-
-            propertyFileTestLine.Trim().Should().Be($"{ProjectName}.mode=ignore");
-        }
-
-        private string WriteToString(BuildMode buildMode, string projectName)
+        private string WriteToString(BuildSource buildSource, string projectName)
         {
             using StringWriter target = new StringWriter();
 
-            buildMode.Write(target, projectName);
+            buildSource.Write(target, projectName);
 
             return target.ToString();
         }
