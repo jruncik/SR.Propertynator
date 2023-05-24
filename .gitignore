@@ -1,0 +1,9 @@
+*.user
+*.ncb
+*.suo
+*.sdf
+.vs/
+**/obj/
+**/bin/
+/.idea
+/.fleet
