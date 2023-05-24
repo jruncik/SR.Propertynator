@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>default</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FluentAssertions" Version="6.8.0"/>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0-preview-20221221-03"/>
+        <PackageReference Include="MSTest.TestAdapter" Version="3.0.2"/>
+        <PackageReference Include="MSTest.TestFramework" Version="3.0.2"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\SR.Propertynator.Model\SR.Propertynator.Model.csproj"/>
+    </ItemGroup>
+
+</Project>
