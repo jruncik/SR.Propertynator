@@ -6,5 +6,5 @@ public sealed class BuildSourceInvariantBranchStage : BuildSourceInvariantBranch
         base("stage")
     { }
 
-    static public BuildSource Instance { get; } = new BuildSourceInvariantBranchStage();
+    public static BuildSource Instance { get; } = new BuildSourceInvariantBranchStage();
 }

@@ -1,43 +1,47 @@
-﻿namespace SR.Propertynator.Model.BuildModes;
-
-public abstract class BuildMode
+﻿namespace SR.Propertynator.Model.BuildModes
 {
-    private readonly string _name;
-
-    private BuildMode(string name)
+    public abstract class BuildMode
     {
-        _name = name;
-    }
+        private readonly BuildModeType _buildModeType;
 
-    static public BuildMode Binary { get; } = new BuildModeBinary();
+        private BuildMode(BuildModeType buildModeType)
+        {
+            _buildModeType = buildModeType;
+        }
 
-    static public BuildMode Source { get; } = new BuildModeSource();
+        public static BuildMode Binary { get; } = new BuildModeBinary();
 
-    static public BuildMode Ignore { get; } = new BuildModeIgnore();
+        public static BuildMode Source { get; } = new BuildModeSource();
 
-    public void Write(TextWriter stream, string projectName)
-    {
-        stream.WriteLine($"{projectName}.{Tags.Mode}={_name}");
-    }
+        public static BuildMode Ignore { get; } = new BuildModeIgnore();
 
-    private sealed class BuildModeBinary : BuildMode
-    {
-        public BuildModeBinary() :
-            base("binary")
-        { }
-    }
+        public void Write(TextWriter stream, string projectName)
+        {
+            stream.WriteLine($"{projectName}.{Tags.Mode}={BuildModeTypeEnumHelperLower.ToString(_buildModeType)}");
+        }
 
-    private sealed class BuildModeSource : BuildMode
-    {
-        public BuildModeSource() :
-            base("source")
-        { }
-    }
+        private sealed class BuildModeBinary : BuildMode
+        {
+            public BuildModeBinary() :
+                base(BuildModeType.Binary)
+            {
+            }
+        }
 
-    private sealed class BuildModeIgnore : BuildMode
-    {
-        public BuildModeIgnore() :
-            base("ignore")
-        { }
+        private sealed class BuildModeSource : BuildMode
+        {
+            public BuildModeSource() :
+                base(BuildModeType.Source)
+            {
+            }
+        }
+
+        private sealed class BuildModeIgnore : BuildMode
+        {
+            public BuildModeIgnore() :
+                base(BuildModeType.Ignore)
+            {
+            }
+        }
     }
 }

@@ -1,13 +1,13 @@
 ﻿namespace SR.Propertynator.Model.Helpers
 {
-    public class EnumHelper<T> where T : Enum, IComparable
+    public class EnumHelperUpper<T> where T : Enum, IComparable
     {
         private static readonly Lazy<EnumHelperFromString<T>> _fromString;
         private static readonly Lazy<EnumHelperToString<T>> _toString;
 
-        private static readonly Func<T, string> GetName = item => item.ToString();
+        private static readonly Func<T, string> GetName = item => item.ToString().ToUpper();
 
-        static EnumHelper()
+        static EnumHelperUpper()
         {
             _fromString = new Lazy<EnumHelperFromString<T>>(() =>
                 new EnumHelperFromString<T>(GetName));

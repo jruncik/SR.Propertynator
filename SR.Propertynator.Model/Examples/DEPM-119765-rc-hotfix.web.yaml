@@ -1,0 +1,27 @@
+'@infor/bi-react-components':
+  branch: dev/DEPM-120365-advanceddatagrid-hotfix
+  fork:
+    fork: dasa.petrezselyova/bi-react-components
+    gitlocation: oxford
+
+'@infor/bi-react-components-example':
+  branch: dev/DEPM-120365-advanceddatagrid-hotfix
+  fork:
+    fork: dasa.petrezselyova/bi-react-components-example
+    gitlocation: oxford
+
+'@infor/bi-react-smart-components': 
+  branch: dev/DEPM-120365-advanceddatagrid-hotfix
+  fork:
+    fork: vit.holy/bi-react-smart-components
+    gitlocation: oxford
+
+Dashboards:
+  title: WebFramework
+'@infor/bi-administration-plugin-client': {}
+Modeling: {}
+'@infor/depm-applications-plugin-client': {}
+'@infor/bi-financialconsolidation': {}
+'@infor/bi-adhoc-plugin': {}
+'@infor/office-integration-web-client': {}
+

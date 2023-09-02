@@ -6,5 +6,5 @@ public sealed class BuildSourceInvariantBranchIntegration : BuildSourceInvariant
         base("integration")
     { }
 
-    static public BuildSource Instance { get; } = new BuildSourceInvariantBranchIntegration();
+    public static BuildSource Instance { get; } = new BuildSourceInvariantBranchIntegration();
 }

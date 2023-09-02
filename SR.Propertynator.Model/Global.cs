@@ -15,7 +15,7 @@ public sealed class Global : IWritable
         throw new NotImplementedException();
     }
 
-    static private bool TryGetOnlyValidCellPropertyInUppercase(IList<string> cellProperties, out string cellPropertyUpperCase)
+    private static bool TryGetOnlyValidCellPropertyInUppercase(IList<string> cellProperties, out string cellPropertyUpperCase)
     {
         if (cellProperties.Count == 1)
         {

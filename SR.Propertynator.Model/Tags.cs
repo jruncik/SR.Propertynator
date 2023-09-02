@@ -1,6 +1,6 @@
 ﻿namespace SR.Propertynator.Model;
 
-static public class Tags
+public static class Tags
 {
     public const string Version    = "version";
     public const string Binary     = "binary";

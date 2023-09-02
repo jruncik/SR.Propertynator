@@ -1,8 +1,8 @@
 ﻿namespace SR.Propertynator.Model.Branches;
 
-static public class ForkNameValidator
+public static class ForkNameValidator
 {
-    static public bool Validate(string formName)
+    public static bool Validate(string formName)
     {
         return true;
     }

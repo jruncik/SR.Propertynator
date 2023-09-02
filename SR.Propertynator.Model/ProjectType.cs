@@ -1,24 +1,31 @@
-﻿namespace SR.Propertynator.Model;
+﻿using SR.Propertynator.Model.Helpers;
 
-public enum ProjectType
+namespace SR.Propertynator.Model
 {
-    Unknown,
+    public enum ProjectType
+    {
+        Unknown,
 
-    Default,
+        Default,
 
-    Framework,
-    Repository,
-    Olap,
-    Modeling,
-    Designer,
-    Depmservice,
-    Consolidation,
-    Appengine,
-    Dashboards,
-    Appstudio,
-    Officeinteg,
-    Administration,
-    Content,
-    Deployment,
-    Tests
+        Framework,
+        Repository,
+        Olap,
+        Modeling,
+        Designer,
+        Depmservice,
+        Consolidation,
+        Appengine,
+        Dashboards,
+        Appstudio,
+        Officeinteg,
+        Administration,
+        Content,
+        Deployment,
+        Tests
+    }
+
+    public sealed class ProjectTypeEnumHelperLower : EnumHelperLower<ProjectType>
+    {
+    }
 }
