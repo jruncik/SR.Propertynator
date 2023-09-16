@@ -1,6 +1,6 @@
 ﻿namespace SR.Propertynator.Model.Projects
 {
-    public sealed class Projects
+    public sealed class PropertyFile
     {
         public IProject Default { get; } = new ProjectDefault();
 

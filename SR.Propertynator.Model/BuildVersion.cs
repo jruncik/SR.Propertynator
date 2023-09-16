@@ -2,6 +2,8 @@
 {
     public sealed class BuildVersion
     {
+        private readonly Version _version;
+
         public BuildVersion(int major, int minor, int build, int revision) :
             this(new Version(major, minor, build, revision))
         {
@@ -29,14 +31,12 @@
 
         private BuildVersion(Version version)
         {
-            Version = version;
+            _version = version;
         }
-
-        public Version Version { get; }
 
         public override string ToString()
         {
-            return $"Build_{Version.ToString()}";
+            return $"Build_{_version.ToString()}";
         }
     }
 }

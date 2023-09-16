@@ -1,6 +1,7 @@
-﻿namespace SR.Propertynator.Model;
-
-public interface IWritable
+﻿namespace SR.Propertynator.Model
 {
-    void Write(TextWriter stream);
+    public interface IWritable
+    {
+        void Write(TextWriter stream);
+    }
 }

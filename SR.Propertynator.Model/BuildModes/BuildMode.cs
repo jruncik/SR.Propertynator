@@ -1,4 +1,6 @@
-﻿namespace SR.Propertynator.Model.BuildModes
+﻿using SR.Propertynator.Model.Projects;
+
+namespace SR.Propertynator.Model.BuildModes
 {
     public abstract class BuildMode
     {
@@ -15,9 +17,9 @@
 
         public static BuildMode Ignore { get; } = new BuildModeIgnore();
 
-        public void Write(TextWriter stream, string projectName)
+        public void Write(TextWriter stream, IProject project)
         {
-            stream.WriteLine($"{projectName}.{Tags.Mode}={BuildModeTypeEnumHelperLower.ToString(_buildModeType)}");
+            stream.WriteLine($"{project.Name}.{Tags.Mode}={BuildModeTypeEnumHelperLower.ToString(_buildModeType)}");
         }
 
         private sealed class BuildModeBinary : BuildMode

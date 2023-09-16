@@ -52,7 +52,7 @@ namespace SR.Propertynator.Model.Tests
         [TestMethod]
         public void BuildVersionFromEmptyStringTest()
         {
-            Action create = () => new BuildVersion(String.Empty);
+            Action create = () => new BuildVersion(string.Empty);
 
             create.Should().Throw<ArgumentException>();
         }

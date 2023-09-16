@@ -1,13 +1,16 @@
-﻿namespace SR.Propertynator.Model;
+﻿using SR.Propertynator.Model.Projects;
 
-public sealed class TestsConfig
+namespace SR.Propertynator.Model
 {
-    public bool RunUnitTests { get; set; } = true;
-
-    public bool RunIntegrationTests { get; set; } = false;
-
-    public void Write(TextWriter stream, string projectName)
+    public sealed class TestsConfig
     {
-        throw new NotImplementedException();
+        public bool RunUnitTests { get; set; } = true;
+
+        public bool RunIntegrationTests { get; set; } = false;
+
+        public static void Write(TextWriter stream, IProject project)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

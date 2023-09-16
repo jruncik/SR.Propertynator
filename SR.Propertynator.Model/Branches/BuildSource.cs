@@ -1,10 +1,12 @@
-﻿namespace SR.Propertynator.Model.Branches
+﻿using SR.Propertynator.Model.Projects;
+
+namespace SR.Propertynator.Model.Branches
 {
     public abstract class BuildSource
     {
-        public static BuildSource Stage { get; } = BuildSourceInvariantBranchStage.Instance;
+        public static BuildSource Stage => BuildSourceInvariantBranchStage.Instance;
 
-        public static BuildSource Integration { get; } = BuildSourceInvariantBranchIntegration.Instance;
+        public static BuildSource Integration => BuildSourceInvariantBranchIntegration.Instance;
 
         public static BuildSource CreateCustomFork(string branchName, string forkName)
         {
@@ -16,7 +18,7 @@
             return new BuildSourceFixedVersion(version);
         }
 
-        public abstract void Write(TextWriter stream, string projectName);
+        public abstract void Write(TextWriter stream, IProject project);
 
         private abstract class BuildSourceInvariantBranch : BuildSource
         {
@@ -27,9 +29,9 @@
                 _branchName = branchName;
             }
 
-            public override void Write(TextWriter stream, string projectName)
+            public override void Write(TextWriter stream, IProject project)
             {
-                stream.WriteLine($"{projectName}.{Tags.Branch}={_branchName}");
+                stream.WriteLine($"{project.Name}.{Tags.Branch}={_branchName}");
             }
         }
 

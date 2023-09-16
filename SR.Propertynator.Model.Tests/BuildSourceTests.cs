@@ -3,22 +3,23 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using SR.Propertynator.Model.Branches;
+using SR.Propertynator.Model.Projects;
 
 namespace SR.Propertynator.Model.Tests
 {
     [TestClass]
     public class BuildSourceTests
     {
-        private const string ProjectName = "TestProjectName";
+        private static readonly IProject Project = new ProjectMoc { Name = "TestProjectName" };
 
         [TestMethod]
         public void WriteBuildModeStage()
         {
             BuildSource buildSource = BuildSource.Stage;
 
-            string propertyFileTestLine = WriteToString(buildSource, ProjectName);
+            string propertyFileTestLine = WriteToString(buildSource, Project);
 
-            propertyFileTestLine.Trim().Should().Be($"{ProjectName}.branch=stage");
+            propertyFileTestLine.Trim().Should().Be($"{Project.Name}.branch=stage");
         }
 
         [TestMethod]
@@ -26,9 +27,9 @@ namespace SR.Propertynator.Model.Tests
         {
             BuildSource buildSource = BuildSource.Integration;
 
-            string propertyFileTestLine = WriteToString(buildSource, ProjectName);
+            string propertyFileTestLine = WriteToString(buildSource, Project);
 
-            propertyFileTestLine.Trim().Should().Be($"{ProjectName}.branch=integration");
+            propertyFileTestLine.Trim().Should().Be($"{Project.Name}.branch=integration");
         }
 
         [TestMethod]
@@ -37,29 +38,29 @@ namespace SR.Propertynator.Model.Tests
             BuildVersion buildVersion = new BuildVersion(12, 16, 7, 27);
             BuildSource buildSource = BuildSource.CreateFixedVersion(buildVersion);
 
-            string propertyFileTestLine = WriteToString(buildSource, ProjectName);
+            string propertyFileTestLine = WriteToString(buildSource, Project);
 
-            propertyFileTestLine.Trim().Should().Be($"{ProjectName}.tag={buildVersion}");
+            propertyFileTestLine.Trim().Should().Be($"{Project.Name}.tag={buildVersion}");
         }
 
         [TestMethod]
         public void WriteBuildModeCustomFork()
         {
-            string BranchName = "BranchName";
-            string ForkName = "ForkName";
+            const string branchName = "BranchName";
+            const string forkName = "ForkName";
 
-            BuildSource buildSource = BuildSource.CreateCustomFork(BranchName, ForkName);
+            BuildSource buildSource = BuildSource.CreateCustomFork(branchName, forkName);
 
-            string propertyFileTestLine = WriteToString(buildSource, ProjectName);
+            string propertyFileTestLine = WriteToString(buildSource, Project);
 
-            propertyFileTestLine.Trim().Should().Be($"{ProjectName}.fork={ForkName}{Environment.NewLine}{ProjectName}.branch={BranchName}");
+            propertyFileTestLine.Trim().Should().Be($"{Project.Name}.fork={forkName}{Environment.NewLine}{Project.Name}.branch={branchName}");
         }
 
-        private string WriteToString(BuildSource buildSource, string projectName)
+        private static string WriteToString(BuildSource buildSource, IProject project)
         {
             using StringWriter target = new StringWriter();
 
-            buildSource.Write(target, projectName);
+            buildSource.Write(target, project);
 
             return target.ToString();
         }

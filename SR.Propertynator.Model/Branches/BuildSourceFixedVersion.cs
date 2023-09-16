@@ -1,4 +1,6 @@
-﻿namespace SR.Propertynator.Model.Branches
+﻿using SR.Propertynator.Model.Projects;
+
+namespace SR.Propertynator.Model.Branches
 {
     public sealed class BuildSourceFixedVersion : BuildSource
     {
@@ -9,9 +11,9 @@
 
         public BuildVersion Version { get; set; }
 
-        public override void Write(TextWriter stream, string projectName)
+        public override void Write(TextWriter stream, IProject project)
         {
-            stream.WriteLine($"{projectName}.{Tags.Tag}={Version}");
+            stream.WriteLine($"{project.Name}.{Tags.Tag}={Version}");
         }
     }
 }

@@ -51,10 +51,10 @@ namespace SR.Propertynator.Model.Projects
 
         public void Write(TextWriter stream)
         {
-            BuildModeBuild.Write(stream, Name);
-            BuildModeDeveloper.Write(stream, Name);
-            BuildSource.Write(stream, Name);
-            TestsConfig.Write(stream, Name);
+            BuildModeBuild.Write(stream, this);
+            BuildModeDeveloper.Write(stream, this);
+            BuildSource.Write(stream, this);
+            TestsConfig.Write(stream, this);
         }
 
         public static IProject Create(string projectName, IProject defaultProject)
@@ -64,27 +64,25 @@ namespace SR.Propertynator.Model.Projects
 
         public static IProject Create(ProjectType type, IProject defaultProject)
         {
-            switch (type)
+            return type switch
             {
-                case ProjectType.Framework: return new Framework(defaultProject);
-                case ProjectType.Repository: return new Repository(defaultProject);
-                case ProjectType.Olap: return new Olap(defaultProject);
-                case ProjectType.Modeling: return new Modeling(defaultProject);
-                case ProjectType.Designer: return new Designer(defaultProject);
-                case ProjectType.Depmservice: return new Epmservice(defaultProject);
-                case ProjectType.Consolidation: return new Consolidation(defaultProject);
-                case ProjectType.Appengine: return new Appengine(defaultProject);
-                case ProjectType.Dashboards: return new Dashboards(defaultProject);
-                case ProjectType.Appstudio: return new Appstudio(defaultProject);
-                case ProjectType.Officeinteg: return new Officeinteg(defaultProject);
-                case ProjectType.Administration: return new Administration(defaultProject);
-                case ProjectType.Content: return new Content(defaultProject);
-                case ProjectType.Deployment: return new Deployment(defaultProject);
-                case ProjectType.Tests: return new Tests(defaultProject);
-
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
-            }
+                ProjectType.Framework => new Framework(defaultProject),
+                ProjectType.Repository => new Repository(defaultProject),
+                ProjectType.Olap => new Olap(defaultProject),
+                ProjectType.Modeling => new Modeling(defaultProject),
+                ProjectType.Designer => new Designer(defaultProject),
+                ProjectType.Depmservice => new Epmservice(defaultProject),
+                ProjectType.Consolidation => new Consolidation(defaultProject),
+                ProjectType.Appengine => new Appengine(defaultProject),
+                ProjectType.Dashboards => new Dashboards(defaultProject),
+                ProjectType.Appstudio => new Appstudio(defaultProject),
+                ProjectType.Officeinteg => new Officeinteg(defaultProject),
+                ProjectType.Administration => new Administration(defaultProject),
+                ProjectType.Content => new Content(defaultProject),
+                ProjectType.Deployment => new Deployment(defaultProject),
+                ProjectType.Tests => new Tests(defaultProject),
+                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null)
+            };
         }
 
         private sealed class Administration : Project

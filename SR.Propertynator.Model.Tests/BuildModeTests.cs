@@ -3,14 +3,15 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using SR.Propertynator.Model.BuildModes;
+using SR.Propertynator.Model.Projects;
 
 namespace SR.Propertynator.Model.Tests
 {
     [TestClass]
     public class BuildModeTests
     {
-        private const string ProjectName = "TestProjectName";
-        
+        private static readonly IProject Project = new ProjectMoc { Name = "TestProjectName" };
+
         [TestMethod]
         public void CreateModelBinary()
         {
@@ -36,34 +37,34 @@ namespace SR.Propertynator.Model.Tests
         public void WriteModelBinary()
         {
             BuildMode model = BuildMode.Binary;
-            string propertyFileTestLine = WriteToString(model, ProjectName);
+            string propertyFileTestLine = WriteToString(model, Project);
 
-            propertyFileTestLine.Trim().Should().Be($"{ProjectName}.mode=binary");
+            propertyFileTestLine.Trim().Should().Be($"{Project.Name}.mode=binary");
         }
 
         [TestMethod]
         public void WriteModelSource()
         {
             BuildMode model = BuildMode.Source;
-            string propertyFileTestLine = WriteToString(model, ProjectName);
+            string propertyFileTestLine = WriteToString(model, Project);
 
-            propertyFileTestLine.Trim().Should().Be($"{ProjectName}.mode=source");
+            propertyFileTestLine.Trim().Should().Be($"{Project.Name}.mode=source");
         }
 
         [TestMethod]
         public void WriteModelIgnore()
         {
             BuildMode model = BuildMode.Ignore;
-            string propertyFileTestLine = WriteToString(model, ProjectName);
+            string propertyFileTestLine = WriteToString(model, Project);
 
-            propertyFileTestLine.Trim().Should().Be($"{ProjectName}.mode=ignore");
+            propertyFileTestLine.Trim().Should().Be($"{Project.Name}.mode=ignore");
         }
 
-        private string WriteToString(BuildMode buildMode, string projectName)
+        private static string WriteToString(BuildMode buildMode, IProject project)
         {
             using StringWriter target = new StringWriter();
 
-            buildMode.Write(target, projectName);
+            buildMode.Write(target, project);
 
             return target.ToString();
         }

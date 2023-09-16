@@ -1,36 +1,37 @@
 ﻿using System.Net.Mail;
 
-namespace SR.Propertynator.Model;
-
-public sealed class Global : IWritable
+namespace SR.Propertynator.Model
 {
-    public const string Name = "global";
-
-    public BuildVersion      VersionBinary          { get; } = new BuildVersion();
-    public BuildVersion      VersionBinaryDeveloper { get; } = new BuildVersion();
-    public List<MailAddress> Recipients             { get; } = new List<MailAddress>();
-
-    public void Write(TextWriter stream)
+    public sealed class Global : IWritable
     {
-        throw new NotImplementedException();
-    }
+        public const string Name = "global";
 
-    private static bool TryGetOnlyValidCellPropertyInUppercase(IList<string> cellProperties, out string cellPropertyUpperCase)
-    {
-        if (cellProperties.Count == 1)
+        public BuildVersion      VersionBinary          { get; } = new BuildVersion();
+        public BuildVersion      VersionBinaryDeveloper { get; } = new BuildVersion();
+        public List<MailAddress> Recipients             { get; } = new List<MailAddress>();
+
+        public void Write(TextWriter stream)
         {
-            cellPropertyUpperCase = cellProperties[0].ToUpper();
-
-            switch (cellPropertyUpperCase)
-            {
-                case "Value":
-                case "Note":
-                case "NoteReporting":
-                    return true;
-            }
+            throw new NotImplementedException();
         }
 
-        cellPropertyUpperCase = string.Empty;
-        return false;
+        private static bool TryGetOnlyValidCellPropertyInUppercase(IList<string> cellProperties, out string cellPropertyUpperCase)
+        {
+            if (cellProperties.Count == 1)
+            {
+                cellPropertyUpperCase = cellProperties[0].ToUpper();
+
+                switch (cellPropertyUpperCase)
+                {
+                    case "Value":
+                    case "Note":
+                    case "NoteReporting":
+                        return true;
+                }
+            }
+
+            cellPropertyUpperCase = string.Empty;
+            return false;
+        }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace SR.Propertynator.Model.Branches
+﻿using SR.Propertynator.Model.Projects;
+
+namespace SR.Propertynator.Model.Branches
 {
     public sealed class BuildSourceCustomFork : BuildSource
     {
@@ -8,14 +10,14 @@
             ForkName = forkName;
         }
 
-        public string ForkName { get; set; } = string.Empty;
+        public string ForkName { get; set; }
 
-        private string BranchName { get; } = string.Empty;
+        private string BranchName { get; }
 
-        public override void Write(TextWriter stream, string projectName)
+        public override void Write(TextWriter stream, IProject project)
         {
-            stream.WriteLine($"{projectName}.{Tags.Fork}={ForkName}");
-            stream.WriteLine($"{projectName}.{Tags.Branch}={BranchName}");
+            stream.WriteLine($"{project.Name}.{Tags.Fork}={ForkName}");
+            stream.WriteLine($"{project.Name}.{Tags.Branch}={BranchName}");
         }
     }
 }
